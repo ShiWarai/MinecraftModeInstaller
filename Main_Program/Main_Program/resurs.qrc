@@ -1,0 +1,12 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>data/titular.jpg</file>
+    <file>data/zad.jpg</file>
+    <file>data/peizag.jpg</file>
+    <file>data/app.ico</file>
+    <file>data/fone.jpg</file>
+    <file>data/trangles.jpg</file>
+    <file>data/strelka.jpg</file>
+    <file>data/spanch.jpg</file>
+</qresource>
+</RCC>
