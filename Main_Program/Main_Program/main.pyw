@@ -5,10 +5,10 @@ from PyQt5 import QtWidgets,QtCore
 import gui as design
 import gui1 as design1
 
-def translate(text):
-    return QtCore.QCoreApplication.translate("MainWindow",text)
 
 class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
+    def addText(self,text):
+        self.textEdit.setText(QtCore.QCoreApplication.translate("MainWindow",str(self.textEdit.toPlainText())+text+"\n"))
     def __init__(self,file):
         # Это здесь нужно для доступа к переменным, методам
         # и т.д. в файле design.py
@@ -20,27 +20,28 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.pushButton.clicked.connect(self.copy)
         self.pushButton_2.clicked.connect(self.select_folder)
         self.pushButton_3.clicked.connect(self.about)
-    def addText(self,text):
-        self.textBrowser.setText(str(self.textBrowser.toPlainText())+text)
     def copy(self):
         if self.clicked_==True:
             path=self.path
         else:
             path=os.environ["APPDATA"]+"\.minecraft"
         if os.path.exists(path)==True:
-            self.addText("> Папка Minecraft найдена\n")
+            self.addText("> Папка Minecraft найдена")
         else:
             QtWidgets.QMessageBox.about(self,"Ошибка!","Minecraft не найден!")
             self.close()
         if os.path.exists(path+"\mods")==True:
             shutil.copy(self.file,path+"\mods")
-            self.addText("> Модификация установлена\n")
+            self.addText("> Модификация установлена")
+            QtWidgets.QMessageBox.about(self,"Готово","Модификация установлена")
             self.path=path
+            self.textEdit.hide()
+            self.textEdit.show()
             self.last(1)
             time.sleep(1)
             self.close()
         else:
-            self.addText("> Папка mods не найдена!\n")
+            QtWidgets.QMessageBox.about(self,"Ошибка","Папка mods не найдена!")
     def select_folder(self):
         self.path=""
         if os.environ["APPDATA"]+"\.minecraft"==True:
@@ -84,4 +85,5 @@ def main(file):
     app.exec_()  # и запускаем приложение
 
 if __name__ == '__main__':  # Если мы запускаем файл напрямую, а не импортируем
-    main(r"C:\Users\Shi Warai\Downloads\123.jar")  # то запускаем функцию main()
+    if sys.argv[1]!=None:
+        main(sys.argv[0])  # то запускаем функцию main()

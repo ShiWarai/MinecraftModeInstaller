@@ -25,7 +25,6 @@
     <Content Include="Build_EXE.bat" />
     <Content Include="design.ui" />
     <Content Include="design1.ui" />
-    <Content Include="res.qrc" />
     <Content Include="resurs.qrc" />
     <Content Include="UI_Builder.bat" />
     <Content Include="UI_Builder1.bat" />
