@@ -29,7 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gui.py" />
-    <Compile Include="gui1.py" />
     <Compile Include="main.pyw" />
     <Compile Include="resurs_rc.py" />
   </ItemGroup>
