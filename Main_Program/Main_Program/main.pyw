@@ -5,7 +5,6 @@ from PyQt5 import QtWidgets,QtCore
 import gui as design
 import gui1 as design1
 
-
 class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
     def addText(self,text):
         self.textEdit.setText(QtCore.QCoreApplication.translate("MainWindow",str(self.textEdit.toPlainText())+text+"\n"))
@@ -85,5 +84,6 @@ def main(file):
     app.exec_()  # и запускаем приложение
 
 if __name__ == '__main__':  # Если мы запускаем файл напрямую, а не импортируем
+    print(sys.argv)
     if sys.argv[1]!=None:
-        main(sys.argv[0])  # то запускаем функцию main()
+        main(sys.argv[1])  # то запускаем функцию main()
