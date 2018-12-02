@@ -29,5 +29,6 @@ missing module named vms_lib - imported by platform (delayed, conditional, optio
 missing module named termios - imported by tty (top-level), D:\Yandex\Программирование\Кооперативная разработка\MinecraftModeInstaller\Main_Program\Main_Program\main.pyw (top-level), getpass (optional)
 missing module named grp - imported by shutil (optional), tarfile (optional), D:\Yandex\Программирование\Кооперативная разработка\MinecraftModeInstaller\Main_Program\Main_Program\main.pyw (top-level)
 missing module named _dummy_threading - imported by dummy_threading (optional), D:\Yandex\Программирование\Кооперативная разработка\MinecraftModeInstaller\Main_Program\Main_Program\main.pyw (top-level)
-missing module named 'org.python' - imported by copy (optional), D:\Yandex\Программирование\Кооперативная разработка\MinecraftModeInstaller\Main_Program\Main_Program\main.pyw (top-level), xml.sax (delayed, conditional)
 missing module named pwd - imported by posixpath (delayed, conditional), shutil (optional), tarfile (optional), http.server (delayed, optional), webbrowser (delayed), D:\Yandex\Программирование\Кооперативная разработка\MinecraftModeInstaller\Main_Program\Main_Program\main.pyw (top-level), netrc (delayed, conditional), getpass (delayed)
+missing module named 'org.python' - imported by copy (optional), D:\Yandex\Программирование\Кооперативная разработка\MinecraftModeInstaller\Main_Program\Main_Program\main.pyw (top-level), xml.sax (delayed, conditional)
+invalid module named resurs_rc - imported by gui (top-level), gui1 (top-level)

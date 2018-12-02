@@ -33,7 +33,6 @@
     <Compile Include="gui.py" />
     <Compile Include="gui1.py" />
     <Compile Include="main.pyw" />
-    <Compile Include="resurs_rc.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
