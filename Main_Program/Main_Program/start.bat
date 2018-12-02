@@ -1,1 +1,0 @@
-python main.pyw C:\123.jar

@@ -29,4 +29,4 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           runtime_tmpdir=None,
-          console=False , version='version.rc', icon='app.ico')
+          console=False , icon='app.ico')
