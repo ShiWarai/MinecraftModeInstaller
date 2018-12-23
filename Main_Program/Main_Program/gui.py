@@ -44,6 +44,9 @@ class Ui_MainWindow(object):
         self.webEngineView.setGeometry(QtCore.QRect(10, 10, 251, 141))
         self.webEngineView.setUrl(QtCore.QUrl("qrc:/data/peizag.jpg"))
         self.webEngineView.setObjectName("webEngineView")
+        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_4.setGeometry(QtCore.QRect(130, 170, 81, 23))
+        self.pushButton_4.setObjectName("pushButton_4")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -60,6 +63,7 @@ class Ui_MainWindow(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.pushButton_4.setText(_translate("MainWindow", "Обновить"))
 
 from PyQt5 import QtWebEngineWidgets
 import resurs_rc

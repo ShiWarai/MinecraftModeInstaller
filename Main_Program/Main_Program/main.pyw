@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys,os,shutil,time,zipfile, connection  # sys нужен для передачи argv в QApplication
+import sys,os,shutil,time,zipfile, connection,subprocess  # sys нужен для передачи argv в QApplication
 from PyQt5 import QtWidgets,QtCore
 import gui as design
 import gui1 as design1
@@ -19,20 +19,26 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.pushButton.clicked.connect(self.copy)
         self.pushButton_2.clicked.connect(self.select_folder)
         self.pushButton_3.clicked.connect(self.about)
-    def installer(self,name):
+        self.pushButton_4.clicked.connect(self.start_update)
+    def installer(self,way,name):
         new=zipfile.ZipFile(name,'r')
-        new.extractall()
+        new.extractall(way)
         new.close();
         os.remove(name)
         old=os.path.basename(sys.argv[0])
-        file=open('update.bat','w')
-        file.write('timeout.exe 3\nerase /Q '+old+'\nren updated.exe '+old+'\nerase /Q timeout.exe\nerase /Q update.bat'); file.close()
+        file=open(way+'update.bat','w')
+        file.write('ren '+way+'updated.exe '+old+'\nerase /Q '+way+'update.bat'); file.close();
     def start_update(self):
-        new=connection.UpdateFromDropbox('bhMu3WRecMAAAAAAAAAAKcV5rJjH2MsowFAXFGyKQ7BhsvW24nWQP4zwy85lAoqa','full',self.installer)
-        new.download()
-        QtWidgets.QMessageBox.about(self,'Выполнение','Готово')
-        Popen(['update.bat'])
-        sys.exit()
+        new=connection.UpdateFromDropbox('bhMu3WRecMAAAAAAAAAAKcV5rJjH2MsowFAXFGyKQ7BhsvW24nWQP4zwy85lAoqa','app',self.installer)
+        way=new.download(); 
+        try:
+            os.remove(way+'old.exe')
+        except:
+            pass
+        QtWidgets.QMessageBox.about(self,'Обновление','Требуется перезагрузка!')
+        os.rename(sys.argv[0],way+'old.exe')
+        subprocess.Popen([way+'update.bat'])
+        self.close()
     def copy(self):
         if self.clicked_==True:
             path=self.path
@@ -98,6 +104,5 @@ def main(file):
     app.exec_()  # и запускаем приложение
 
 if __name__ == '__main__':  # Если мы запускаем файл напрямую, а не импортируем
-    print(sys.argv)
-    if sys.argv[1]!=None:
+    if len(sys.argv)>1:
         main(sys.argv[1])  # то запускаем функцию main()

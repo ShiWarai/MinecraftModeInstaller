@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['main.pyw'],
-             pathex=['D:\\Yandex\\Программирование\\Кооперативная разработка\\MinecraftModeInstaller\\Main_Program\\Main_Program'],
+             pathex=['D:\\Yandex\\Programming\\Кооперативная разработка\\MinecraftModeInstaller\\Main_Program\\Main_Program'],
              binaries=[],
              datas=[],
              hiddenimports=[],

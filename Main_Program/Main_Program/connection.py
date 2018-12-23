@@ -1,4 +1,4 @@
-import socket,threading,requests, dropbox,zipfile
+import socket,threading,requests, dropbox,zipfile,os,sys
 
 class LocalConnection():
     def __init__(self,queue,port,ip=socket.gethostbyname(socket.gethostname()),output_=print,input_=input,bit_rate=1024,isServer=True): # Создание соединения
@@ -132,10 +132,16 @@ class UpdateFromDropbox():
         if version==None:
             version=self.last()
         meta,arch=self.dropfolder.files_download(path='/versions/'+version+'/'+self.data_name+'.zip')
-        with open(self.data_name+'.zip','wb') as file:
+        way=os.path.abspath(sys.argv[0]).split('\\')
+        way.pop(len(way)-1);way_=''
+        for x in way:
+            way_+=x+'\\'
+        way=way_;del way_
+        with open(way+self.data_name+'.zip','wb') as file:
             file.write(arch.content)
         if self.install!=None:
-            self.install(self.data_name+'.zip')
+            self.install(way,way+self.data_name+'.zip')
+            return way
 
 def DownloadSiteFile(web,file):
     filereq = requests.get(web,stream = True)

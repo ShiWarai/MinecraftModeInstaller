@@ -328,3 +328,5 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/Main_Program/Main_Program/Builder.exe
+/Main_Program/Main_Program/xcopy.exe
