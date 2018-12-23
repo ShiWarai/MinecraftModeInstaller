@@ -30,6 +30,7 @@
     <Content Include="UI_Builder1.bat" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="connection.py" />
     <Compile Include="gui.py" />
     <Compile Include="gui1.py" />
     <Compile Include="main.pyw" />

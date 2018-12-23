@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys,os,shutil,time  # sys нужен для передачи argv в QApplication
+import sys,os,shutil,time,zipfile, connection  # sys нужен для передачи argv в QApplication
 from PyQt5 import QtWidgets,QtCore
 import gui as design
 import gui1 as design1
@@ -19,6 +19,20 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.pushButton.clicked.connect(self.copy)
         self.pushButton_2.clicked.connect(self.select_folder)
         self.pushButton_3.clicked.connect(self.about)
+    def installer(self,name):
+        new=zipfile.ZipFile(name,'r')
+        new.extractall()
+        new.close();
+        os.remove(name)
+        old=os.path.basename(sys.argv[0])
+        file=open('update.bat','w')
+        file.write('timeout.exe 3\nerase /Q '+old+'\nren updated.exe '+old+'\nerase /Q timeout.exe\nerase /Q update.bat'); file.close()
+    def start_update(self):
+        new=connection.UpdateFromDropbox('bhMu3WRecMAAAAAAAAAAKcV5rJjH2MsowFAXFGyKQ7BhsvW24nWQP4zwy85lAoqa','full',self.installer)
+        new.download()
+        QtWidgets.QMessageBox.about(self,'Выполнение','Готово')
+        Popen(['update.bat'])
+        sys.exit()
     def copy(self):
         if self.clicked_==True:
             path=self.path
