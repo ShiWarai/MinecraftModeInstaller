@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import sys,os,shutil,time,zipfile, connection,subprocess  # sys нужен для передачи argv в QApplication
+import sys,os,shutil,time,zipfile, connection,subprocess,threading  # sys нужен для передачи argv в QApplication
 from PyQt5 import QtWidgets,QtCore
 import gui as design
 import gui1 as design1
+
 
 class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
     def addText(self,text):
@@ -16,6 +17,7 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.file=file; self.path=None; self.clicked_=False 
         if self.last(2)==1 and self.path!=None:
             self.addText("Последняя папка:\n"+self.path)
+        self.label.hide()
         self.pushButton.clicked.connect(self.copy)
         self.pushButton_2.clicked.connect(self.select_folder)
         self.pushButton_3.clicked.connect(self.about)
@@ -29,6 +31,7 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
         file=open(way+'update.bat','w')
         file.write('ren '+way+'updated.exe '+old+'\nerase /Q '+way+'update.bat'); file.close();
     def start_update(self):
+        self.label.show()
         new=connection.UpdateFromDropbox('bhMu3WRecMAAAAAAAAAAKcV5rJjH2MsowFAXFGyKQ7BhsvW24nWQP4zwy85lAoqa','app',self.installer)
         way=new.download(); 
         try:
@@ -106,3 +109,5 @@ def main(file):
 if __name__ == '__main__':  # Если мы запускаем файл напрямую, а не импортируем
     if len(sys.argv)>1:
         main(sys.argv[1])  # то запускаем функцию main()
+    else:
+        main(r'C:\test.jar')

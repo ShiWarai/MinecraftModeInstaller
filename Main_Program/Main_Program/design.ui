@@ -138,6 +138,27 @@ p, li { white-space: pre-wrap; }
      <string>Обновить</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>165</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Загрузка...Ждите!</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <customwidgets>

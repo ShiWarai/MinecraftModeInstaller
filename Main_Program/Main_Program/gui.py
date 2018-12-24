@@ -47,6 +47,13 @@ class Ui_MainWindow(object):
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_4.setGeometry(QtCore.QRect(130, 170, 81, 23))
         self.pushButton_4.setObjectName("pushButton_4")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setEnabled(True)
+        self.label.setGeometry(QtCore.QRect(230, 165, 181, 31))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.label.setFont(font)
+        self.label.setObjectName("label")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -64,6 +71,7 @@ class Ui_MainWindow(object):
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.pushButton_4.setText(_translate("MainWindow", "Обновить"))
+        self.label.setText(_translate("MainWindow", "Загрузка...Ждите!"))
 
 from PyQt5 import QtWebEngineWidgets
 import resurs_rc

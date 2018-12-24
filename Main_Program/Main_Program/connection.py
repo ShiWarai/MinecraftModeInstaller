@@ -1,6 +1,6 @@
 import socket,threading,requests, dropbox,zipfile,os,sys
 
-class LocalConnection():
+'''class LocalConnection():
     def __init__(self,queue,port,ip=socket.gethostbyname(socket.gethostname()),output_=print,input_=input,bit_rate=1024,isServer=True): # Создание соединения
         super(LocalConnection,self).__init__()
         self.IP=ip
@@ -112,7 +112,7 @@ class GlobalConnection():
             thr1.start()
             return self.stop
         except:
-            return 0
+            return 0'''
 
 class UpdateFromDropbox():
     def __init__(self,key,data_name,installer=None):
@@ -143,7 +143,7 @@ class UpdateFromDropbox():
             self.install(way,way+self.data_name+'.zip')
             return way
 
-def DownloadSiteFile(web,file):
+'''def DownloadSiteFile(web,file):
     filereq = requests.get(web,stream = True)
     with open(file,"wb") as receive:
         receive.write(filereq.content)
@@ -158,5 +158,5 @@ def DownloadDropbox(key,path_,file_path):
         f.write(res.content)
         f.close()
         return metadata
-    return 0
+    return 0'''
     
