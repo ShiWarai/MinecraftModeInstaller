@@ -1,10 +1,23 @@
 # -*- coding: utf-8 -*-
 
-import sys,os,shutil,time,zipfile, connection,subprocess,threading  # sys нужен для передачи argv в QApplication
+import sys,os # sys нужен для передачи argv в QApplication
 from PyQt5 import QtWidgets,QtCore
 import gui as design
 import gui1 as design1
+from threading import Thread 
+from subprocess import Popen
+from connection import UpdateFromDropbox
+from time import sleep
+from zipfile import ZipFile
+from shutil import copy
 
+class Communicate(QtCore.QObject):
+
+    closeApp = QtCore.pyqtSignal()
+
+class Communicate1(QtCore.QObject):
+
+    closeApp = QtCore.pyqtSignal(str)
 
 class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
     def addText(self,text):
@@ -12,8 +25,9 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
     def __init__(self,file):
         # Это здесь нужно для доступа к переменным, методам
         # и т.д. в файле design.py
-        super().__init__()
+        super().__init__();self._want_to_close = True
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+        self.pyProc=Communicate();self.pyProc1=Communicate1()
         self.file=file; self.path=None; self.clicked_=False 
         if self.last(2)==1 and self.path!=None:
             self.addText("Последняя папка:\n"+self.path)
@@ -21,27 +35,43 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.pushButton.clicked.connect(self.copy)
         self.pushButton_2.clicked.connect(self.select_folder)
         self.pushButton_3.clicked.connect(self.about)
-        self.pushButton_4.clicked.connect(self.start_update)
+        self.pushButton_4.clicked.connect(self.start_update1)
+        self.thr1=Thread(target=self.start_update)
+        self.pyProc1.closeApp.connect(self.end_starter)
     def installer(self,way,name):
-        new=zipfile.ZipFile(name,'r')
+        new=ZipFile(name,'r')
         new.extractall(way)
         new.close();
         os.remove(name)
         old=os.path.basename(sys.argv[0])
         file=open(way+'update.bat','w')
         file.write('ren '+way+'updated.exe '+old+'\nerase /Q '+way+'update.bat'); file.close();
-    def start_update(self):
+    def closeEvent(self, evnt):
+        if self._want_to_close:
+            super(MyDialog, self).closeEvent(evnt)
+        else:
+            evnt.ignore()
+            #self.setWindowState(QtCore.Qt.WindowMinimized)
+    def start_update1(self):
         self.label.show()
-        new=connection.UpdateFromDropbox('bhMu3WRecMAAAAAAAAAAKcV5rJjH2MsowFAXFGyKQ7BhsvW24nWQP4zwy85lAoqa','app',self.installer)
+        self.setEnabled(False)
+        self._want_to_close=False
+        self.thr1.start()
+    @QtCore.pyqtSlot(str)
+    def end_starter(self,way): 
+        self._want_to_close=True
+        QtWidgets.QMessageBox.about(self,'Обновление','Требуется перезагрузка!')
+        os.rename(sys.argv[0],way+'old.exe')
+        subprocess.Popen([way+'update.bat'])
+        self.close()
+    def start_update(self):
+        new=UpdateFromDropbox('bhMu3WRecMAAAAAAAAAAKcV5rJjH2MsowFAXFGyKQ7BhsvW24nWQP4zwy85lAoqa','app',self.installer)
         way=new.download(); 
         try:
             os.remove(way+'old.exe')
         except:
             pass
-        QtWidgets.QMessageBox.about(self,'Обновление','Требуется перезагрузка!')
-        os.rename(sys.argv[0],way+'old.exe')
-        subprocess.Popen([way+'update.bat'])
-        self.close()
+        self.pyProc1.closeApp.emit(way)
     def copy(self):
         if self.clicked_==True:
             path=self.path
@@ -53,14 +83,14 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
             QtWidgets.QMessageBox.about(self,"Ошибка!","Minecraft не найден!")
             self.close()
         if os.path.exists(path+"\mods")==True:
-            shutil.copy(self.file,path+"\mods")
+            copy(self.file,path+"\mods")
             self.addText("> Модификация установлена")
             QtWidgets.QMessageBox.about(self,"Готово","Модификация установлена")
             self.path=path
             self.textEdit.hide()
             self.textEdit.show()
             self.last(1)
-            time.sleep(1)
+            sleep(1)
             self.close()
         else:
             QtWidgets.QMessageBox.about(self,"Ошибка","Папка mods не найдена!")
