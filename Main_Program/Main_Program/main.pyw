@@ -48,7 +48,7 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
         file.write('ren '+way+'updated.exe '+old+'\nerase /Q '+way+'update.bat'); file.close();
     def closeEvent(self, evnt):
         if self._want_to_close:
-            super(MyDialog, self).closeEvent(evnt)
+            super(ExampleApp, self).closeEvent(evnt)
         else:
             evnt.ignore()
             #self.setWindowState(QtCore.Qt.WindowMinimized)
@@ -62,7 +62,7 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self._want_to_close=True
         QtWidgets.QMessageBox.about(self,'Обновление','Требуется перезагрузка!')
         os.rename(sys.argv[0],way+'old.exe')
-        subprocess.Popen([way+'update.bat'])
+        Popen([way+'update.bat'])
         self.close()
     def start_update(self):
         new=UpdateFromDropbox('bhMu3WRecMAAAAAAAAAAKcV5rJjH2MsowFAXFGyKQ7BhsvW24nWQP4zwy85lAoqa','app',self.installer)
